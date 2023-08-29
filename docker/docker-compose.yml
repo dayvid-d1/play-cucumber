@@ -1,0 +1,7 @@
+version: '3'
+services:
+  play-tests:
+    container_name: slims-playwright
+    image: davidclement/cucumber-play:latest
+    volumes: 
+      - "../:/app:Z"

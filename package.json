@@ -1,0 +1,33 @@
+{
+  "name": "slims-cucumber",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@cucumber/cucumber": "^9.4.0",
+    "playwright-core": "^1.37.0",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.37.0",
+    "cross-env": "^7.0.3",
+    "datatables.net": "^1.13.6",
+    "dotenv": "^16.3.1",
+    "fs-extra": "^11.1.1",
+    "jquery": "^3.7.0",
+    "multiple-cucumber-html-reporter": "^3.4.0",
+    "playwright": "^1.37.1",
+    "winston": "^3.10.0"
+  },
+  "scripts": {
+    "pretest": "npx ts-node  src/helper/report/init.ts",
+    "test": "cross-env cucumber-js --config=config/cucumber.js || true",
+    "debug": "cross-env PWDEBUG=1 DEBUG=pw:api APPLICATION=Appoint HEADLESS=true BROWSER=chrome FORCE_COLOR=0 cucumber-js --config=config/cucumber.js || true",
+    "posttest": "npx ts-node src/helper/report/report.ts",
+    "test:failed": "cucumber-js -p rerun @failedScenarios.txt",
+    "codegen": "npx playwright codegen https://icp.administracionelectronica.gob.es/icpplus/index.html --ignore-https-errors",
+    "docker": "docker-compose -f ./docker/docker-compose.yml up",
+    "postdocker": "docker-compose -f ./docker/docker-compose.yml down",
+    "local": "cross-env APPLICATION=Appoint HEADLESS=false BROWSER=chrome FORCE_COLOR=0 cucumber-js --config=config/cucumber.js || true",
+    "report": "start test-results/reports/index.html"
+  }
+}
